@@ -29,9 +29,9 @@ class App extends Component {
     return (
       <div>
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ul>
+        <ul className="ImageGallery">
           {data.map(({ id, webformatURL, tags }) => (
-            <li key={id}>
+            <li className="ImageGalleryItem" key={id}>
               <img src={webformatURL} alt={tags} />
             </li>
           ))}
