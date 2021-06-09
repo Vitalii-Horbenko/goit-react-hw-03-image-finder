@@ -11,7 +11,7 @@ class App extends Component {
     currentPage: 1,
     searchQuery: "",
     isLoading: false,
-    selectedImage: "",
+    largeImageURL: null,
     showModal: false,
   };
 
@@ -59,11 +59,11 @@ class App extends Component {
   };
 
   render() {
-    const { data, isLoading, showModal, selectedImage } = this.state;
+    const { data, isLoading, showModal, largeImageURL } = this.state;
     return (
       <div className="App">
         {showModal && (
-          <Modal image={selectedImage} onClose={this.toggleModal} />
+          <Modal onClose={this.toggleModal} largeImageURL={largeImageURL} />
         )}
         <Searchbar onSubmit={this.onChangeQuery} />
         <ul className="ImageGallery">
