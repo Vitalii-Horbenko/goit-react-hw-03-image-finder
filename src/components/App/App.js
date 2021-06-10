@@ -27,6 +27,13 @@ class App extends Component {
     }));
   };
 
+  openModal = (e) => {
+    this.toggleModal();
+    const { large } = e.target.dataset;
+    console.log("large: ", large);
+    this.setState({ largeImageURL: large });
+  };
+
   onChangeQuery = (query) => {
     this.setState({ searchQuery: query, currentPage: 1, data: [] });
   };
@@ -67,13 +74,14 @@ class App extends Component {
         )}
         <Searchbar onSubmit={this.onChangeQuery} />
         <ul className="ImageGallery">
-          {data.map(({ id, webformatURL, tags }) => (
+          {data.map(({ id, webformatURL, tags, largeImageURL }) => (
             <li className="ImageGalleryItem" key={id}>
               <img
                 src={webformatURL}
                 alt={tags}
                 className="ImageGalleryItem-image"
-                onClick={this.toggleModal}
+                onClick={this.openModal}
+                data-large={largeImageURL}
               />
             </li>
           ))}
