@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import axios from "axios";
 import "./App.css";
 import Searchbar from "../Searchbar";
-import Loader from "react-loader-spinner";
+import Loader from "../Loader";
 import Modal from "../Modal";
+import pixabayApi from "../../services/pixabay-api";
+import Button from "../Button";
+import ImageGalleryItem from "../ImageGalleryItem";
+import ImageGallery from "../ImageGallery";
 
 class App extends Component {
   state = {
@@ -30,7 +33,6 @@ class App extends Component {
   openModal = (e) => {
     this.toggleModal();
     const { large } = e.target.dataset;
-    console.log("large: ", large);
     this.setState({ largeImageURL: large });
   };
 
@@ -40,16 +42,10 @@ class App extends Component {
 
   fetchImages = () => {
     const { currentPage, searchQuery } = this.state;
-    const apiKey = "18864505-6c3c7593910f8166537b8d98b";
-
     this.setState({ isLoading: true });
-    axios
-      .get(
-        `https://pixabay.com/api/?q=${searchQuery}&page=${currentPage}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12
-        `
-      )
-      .then(({ data }) => {
-        console.log(data.hits);
+    pixabayApi
+      .fetchImg(currentPage, searchQuery)
+      .then((data) => {
         this.setState((prevState) => ({
           data: [...prevState.data, ...data.hits],
           currentPage: prevState.currentPage + 1,
@@ -73,33 +69,11 @@ class App extends Component {
           <Modal onClose={this.toggleModal} largeImageURL={largeImageURL} />
         )}
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ul className="ImageGallery">
-          {data.map(({ id, webformatURL, tags, largeImageURL }) => (
-            <li className="ImageGalleryItem" key={id}>
-              <img
-                src={webformatURL}
-                alt={tags}
-                className="ImageGalleryItem-image"
-                onClick={this.openModal}
-                data-large={largeImageURL}
-              />
-            </li>
-          ))}
-        </ul>
-        {isLoading && (
-          <Loader
-            type="Puff"
-            color="#00BFFF"
-            height={100}
-            width={100}
-            timeout={3000} //3 secs
-          />
-        )}
-        {data.length > 0 && !isLoading && (
-          <button type="button" onClick={this.fetchImages} className="Button">
-            Load more
-          </button>
-        )}
+        <ImageGallery>
+          <ImageGalleryItem onData={data} openModal={this.openModal} />
+        </ImageGallery>
+        {isLoading && <Loader />}
+        {data.length > 0 && !isLoading && <Button onClick={this.fetchImages} />}
       </div>
     );
   }
