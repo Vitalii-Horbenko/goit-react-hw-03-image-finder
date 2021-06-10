@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const ImageGalleryItem = ({ onData, openModal }) => {
   return (
@@ -16,6 +17,15 @@ const ImageGalleryItem = ({ onData, openModal }) => {
       ))}
     </>
   );
+};
+
+ImageGalleryItem.propTypes = {
+  onData: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool])
+    )
+  ).isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default ImageGalleryItem;

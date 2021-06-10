@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Modal extends Component {
   componentDidMount() {
@@ -11,7 +12,6 @@ class Modal extends Component {
 
   handleKeyDown = (e) => {
     if (e.code === "Escape") {
-      console.log("Нажали ESC");
       this.props.onClose();
     }
   };
@@ -33,5 +33,10 @@ class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+};
 
 export default Modal;
