@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styles from "./ImageGalleryItem.module.css";
 
 const ImageGalleryItem = ({ onData, openModal }) => {
   return (
     <>
       {onData.map(({ id, webformatURL, tags, largeImageURL }) => (
-        <li className="ImageGalleryItem" key={id}>
+        <li className={styles["ImageGalleryItem"]} key={id}>
           <img
             src={webformatURL}
             alt={tags}
-            className="ImageGalleryItem-image"
+            className={styles["ImageGalleryItem-image"]}
             onClick={openModal}
             data-large={largeImageURL}
           />

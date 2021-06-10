@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import styles from "./App.module.css";
 import Searchbar from "../Searchbar";
 import Loader from "../Loader";
 import Modal from "../Modal";
@@ -64,7 +64,7 @@ class App extends Component {
   render() {
     const { data, isLoading, showModal, largeImageURL } = this.state;
     return (
-      <div className="App">
+      <div className={styles.App}>
         {showModal && (
           <Modal onClose={this.toggleModal} largeImageURL={largeImageURL} />
         )}
