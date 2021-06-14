@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const fetchImg = (currentPage, searchQuery) => {
+export const fetchImg = (currentPage, searchQuery) => {
   const apiKey = "18864505-6c3c7593910f8166537b8d98b";
   return axios
     .get(
@@ -9,5 +9,3 @@ const fetchImg = (currentPage, searchQuery) => {
     )
     .then(({ data }) => data);
 };
-
-export default { fetchImg };

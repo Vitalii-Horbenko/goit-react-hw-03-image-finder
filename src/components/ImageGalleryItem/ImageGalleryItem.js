@@ -22,10 +22,13 @@ const ImageGalleryItem = ({ onData, openModal }) => {
 
 ImageGalleryItem.propTypes = {
   onData: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool])
-    )
-  ).isRequired,
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ),
   openModal: PropTypes.func.isRequired,
 };
 

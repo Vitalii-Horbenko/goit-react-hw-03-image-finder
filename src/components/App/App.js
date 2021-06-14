@@ -3,9 +3,8 @@ import styles from "./App.module.css";
 import Searchbar from "../Searchbar";
 import Loader from "../Loader";
 import Modal from "../Modal";
-import pixabayApi from "../../services/pixabay-api";
+import * as pixabayApi from "../../services/pixabay-api";
 import Button from "../Button";
-import ImageGalleryItem from "../ImageGalleryItem";
 import ImageGallery from "../ImageGallery";
 
 class App extends Component {
@@ -69,9 +68,9 @@ class App extends Component {
           <Modal onClose={this.toggleModal} largeImageURL={largeImageURL} />
         )}
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ImageGallery>
-          <ImageGalleryItem onData={data} openModal={this.openModal} />
-        </ImageGallery>
+        {data.length > 0 && (
+          <ImageGallery onData={data} openModal={this.openModal} />
+        )}
         {isLoading && <Loader />}
         {data.length > 0 && !isLoading && <Button onClick={this.fetchImages} />}
       </div>
