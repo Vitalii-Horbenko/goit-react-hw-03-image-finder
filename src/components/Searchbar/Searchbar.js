@@ -5,6 +5,10 @@ import styles from "./Searchbar.module.css";
 class SearchBar extends Component {
   state = { query: "" };
 
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   handleChange = (e) => {
     this.setState({ query: e.currentTarget.value });
   };
@@ -38,9 +42,5 @@ class SearchBar extends Component {
     );
   }
 }
-
-SearchBar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default SearchBar;
